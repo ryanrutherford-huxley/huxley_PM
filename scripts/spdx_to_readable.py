@@ -48,6 +48,29 @@ def summarize_document(data: dict, source_path: Path) -> tuple[dict, list[dict]]
     packages = [normalize_package(pkg) for pkg in data.get("packages", [])]
     ecosystem_counts = Counter(pkg["ecosystem"] for pkg in packages)
     license_counts = Counter(pkg["license"] or "UNKNOWN" for pkg in packages)
+    relationships = data.get("relationships", [])
+    described_package_id = next(
+        (
+            rel.get("relatedSpdxElement")
+            for rel in relationships
+            if rel.get("relationshipType") == "DESCRIBES"
+            and rel.get("spdxElementId") == "SPDXRef-DOCUMENT"
+        ),
+        "",
+    )
+    dependency_relationships = [
+        rel for rel in relationships if rel.get("relationshipType") == "DEPENDS_ON"
+    ]
+    direct_dependency_count = sum(
+        1
+        for rel in dependency_relationships
+        if rel.get("spdxElementId") == described_package_id
+    )
+    unique_dependency_ids = {
+        rel.get("relatedSpdxElement")
+        for rel in dependency_relationships
+        if rel.get("relatedSpdxElement")
+    }
 
     summary = {
         "source_file": str(source_path),
@@ -56,7 +79,10 @@ def summarize_document(data: dict, source_path: Path) -> tuple[dict, list[dict]]
         "created": data.get("creationInfo", {}).get("created", ""),
         "creators": ", ".join(data.get("creationInfo", {}).get("creators", [])),
         "package_count": len(packages),
-        "relationship_count": len(data.get("relationships", [])),
+        "relationship_count": len(relationships),
+        "dependency_relationship_count": len(dependency_relationships),
+        "direct_dependency_count": direct_dependency_count,
+        "unique_dependency_count": len(unique_dependency_ids),
         "ecosystem_counts": ecosystem_counts,
         "license_counts": license_counts,
     }
@@ -70,7 +96,10 @@ def render_text(summary: dict, packages: list[dict], limit: int) -> str:
         f"SPDX version: {summary['spdx_version']}",
         f"Created: {summary['created']}",
         f"Creators: {summary['creators'] or 'N/A'}",
-        f"Packages: {summary['package_count']}",
+        f"Package records: {summary['package_count']}",
+        f"Direct dependencies: {summary['direct_dependency_count']}",
+        f"Unique dependencies in graph: {summary['unique_dependency_count']}",
+        f"Dependency relationships: {summary['dependency_relationship_count']}",
         f"Relationships: {summary['relationship_count']}",
         "",
         "Packages by ecosystem:",
@@ -102,7 +131,10 @@ def render_markdown(summary: dict, packages: list[dict], limit: int) -> str:
         f"- SPDX version: `{summary['spdx_version']}`",
         f"- Created: `{summary['created']}`",
         f"- Creators: `{summary['creators'] or 'N/A'}`",
-        f"- Packages: `{summary['package_count']}`",
+        f"- Package records: `{summary['package_count']}`",
+        f"- Direct dependencies: `{summary['direct_dependency_count']}`",
+        f"- Unique dependencies in graph: `{summary['unique_dependency_count']}`",
+        f"- Dependency relationships: `{summary['dependency_relationship_count']}`",
         f"- Relationships: `{summary['relationship_count']}`",
         "",
         "## Package Counts by Ecosystem",
