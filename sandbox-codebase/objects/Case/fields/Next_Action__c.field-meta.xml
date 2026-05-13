@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Action__c</fullName>
+    <description>Next Action for Message Flow</description>
+    <inlineHelpText>Next Action for Message Flow</inlineHelpText>
+    <label>Next Action</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>WaitingForOpt-in</fullName>
+                <default>true</default>
+                <label>WaitingForOpt-in</label>
+            </value>
+            <value>
+                <fullName>ADDR_1A</fullName>
+                <default>false</default>
+                <label>ADDR_1A</label>
+            </value>
+            <value>
+                <fullName>WaitingConfirmationADDR_1A</fullName>
+                <default>false</default>
+                <label>WaitingConfirmationADDR_1A</label>
+            </value>
+            <value>
+                <fullName>ADDR_2A</fullName>
+                <default>false</default>
+                <label>ADDR_2A</label>
+            </value>
+            <value>
+                <fullName>WaitingConfirmationADDR_2A</fullName>
+                <default>false</default>
+                <label>WaitingConfirmationADDR_2A</label>
+            </value>
+            <value>
+                <fullName>ADDR_1B</fullName>
+                <default>false</default>
+                <label>ADDR_1B</label>
+            </value>
+            <value>
+                <fullName>WaitingConfirmationTEST_3A</fullName>
+                <default>false</default>
+                <label>WaitingConfirmationTEST_3A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study_Date_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISBLANK(TEXT( Study_Success_Status__c ))), ISBLANK( Study_Date__c ), TEXT( Study_Success_Status__c )= &quot;Unresponsive Patient&quot;)</errorConditionFormula>
+    <errorDisplayField>Study_Date__c</errorDisplayField>
+    <errorMessage>Study Date is Required to Proceed</errorMessage>
+</ValidationRule>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study</fullName>
+    <active>true</active>
+    <label>Study</label>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Transit to Huxley</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Transit to Patient</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test Pending</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

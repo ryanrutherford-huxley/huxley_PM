@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>aircall__Transferred_AircallLog__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <label>Transferred To</label>
+    <referenceTo>aircall__Aircall_AI__c</referenceTo>
+    <relationshipLabel>Aircall Logs</relationshipLabel>
+    <relationshipName>Aircall_Logs</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>heymarket__All_Messages</fullName>
+    <columns>NAME</columns>
+    <columns>heymarket__Created_On_Heymarket__c</columns>
+    <columns>heymarket__Inbox_Number__c</columns>
+    <columns>heymarket__Account__c</columns>
+    <columns>heymarket__Contact__c</columns>
+    <columns>heymarket__Lead__c</columns>
+    <columns>heymarket__Targeted_Phone__c</columns>
+    <columns>heymarket__Status__c</columns>
+    <columns>heymarket__Text__c</columns>
+    <columns>heymarket__Type__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Messages</label>
+</ListView>

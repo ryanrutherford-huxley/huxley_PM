@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Active__c</fullName>
+    <deprecated>false</deprecated>
+    <formula>CASE(TEXT(mone__Status__c), &quot;subscribed&quot;, 1, &quot;pending&quot;, 1, &quot;transactional&quot;, 1, 0)=1</formula>
+    <inlineHelpText>Determines whether the member is active in Mailchimp.</inlineHelpText>
+    <label>Active</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,26 @@
+# Salesforce CLI local state
+.sf/
+.sfdx/
+.localdevserver/
+
+# Dependencies and generated output
+/node_modules/
+/coverage/
+/.nyc_output/
+/dist/
+/build/
+
+# Logs and temporary files
+logs/
+*.log
+*.tmp
+*.swp
+
+# Local environment and OS/editor noise
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json

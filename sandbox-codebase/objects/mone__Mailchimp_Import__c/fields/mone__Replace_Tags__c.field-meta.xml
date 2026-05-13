@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Replace_Tags__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <inlineHelpText>When checked, any tags supplied in the import will completely override any tags associated with existing Members in Mailchimp.</inlineHelpText>
+    <label>Replace Tags</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

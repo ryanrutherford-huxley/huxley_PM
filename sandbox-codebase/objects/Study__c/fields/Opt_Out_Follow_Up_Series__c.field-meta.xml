@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opt_Out_Follow_Up_Series__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>https://basecamp.com/2583453/projects/19794483/todos/515712884</description>
+    <inlineHelpText>Used to stop automated Follow-Up Series SMS from being sent to the recipient/patient</inlineHelpText>
+    <label>Opt Out: Follow Up Series</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

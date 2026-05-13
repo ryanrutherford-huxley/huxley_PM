@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>heymarket__Is_Campaign__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If the message is sent from Campaign SMS then it will be set to true. Otherwise, false by default</description>
+    <label>Is Campaign</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

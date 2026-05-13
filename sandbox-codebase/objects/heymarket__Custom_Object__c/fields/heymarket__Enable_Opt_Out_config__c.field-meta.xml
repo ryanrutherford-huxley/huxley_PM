@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>heymarket__Enable_Opt_Out_config__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enable Opt Out Config for Custom Object</description>
+    <label>Enable Opt Out COnfig</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

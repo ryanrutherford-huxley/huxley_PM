@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patient_Satisfaction_Survey_Notes__c</fullName>
+    <description>Note any additional information the patient provides in response to the survey</description>
+    <inlineHelpText>Note any additional information the patient provides in response to the survey</inlineHelpText>
+    <label>Patient Satisfaction Survey Notes</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>TextArea</type>
+</CustomField>

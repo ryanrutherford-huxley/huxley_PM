@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Required__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Address_Confirmation_Required__c ,&quot;Confirm Address&quot;,
+			IF(Packaging_Required__c, &quot;Ship&quot;,
+						IF(Instructional_Call_Required__c, &quot;Make Instructional Call&quot;,
+								IF( Send_Study_Reminder_Text_Required__c, &quot;Send Study Reminder Text&quot;,
+
+IF(Study_Follow_up_Required__c, &quot;Follow-up on Study Completion&quot;,
+
+IF(Send_PSat_Survey_Required__c, &quot;Send PSat Survey&quot;,
+												IF(Processing_Required__c, &quot;Process Return&quot;,
+															IF(Huxley_Data_Review_Required__c, &quot;Review Data&quot;, &quot;&quot;
+																		)
+															)
+											)
+								)
+					)
+		)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Action Required</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

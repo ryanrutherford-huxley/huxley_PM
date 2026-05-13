@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delay_Ship_Date_To__c</fullName>
+    <description>Fill in this field if during the address confirmation call, the patient said they cannot complete the test immediately and we should delay shipment</description>
+    <label>Delay Ship Date To</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

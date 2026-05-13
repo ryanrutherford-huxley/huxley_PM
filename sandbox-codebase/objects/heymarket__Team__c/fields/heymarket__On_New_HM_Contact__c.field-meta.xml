@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>heymarket__On_New_HM_Contact__c</fullName>
+    <deprecated>false</deprecated>
+    <description>What happens when a new Contact comes from Heymarket, it should create a Lead, Contact or do nothing</description>
+    <inlineHelpText>What happens when a new Contact comes from Heymarket, it should create a Lead, Contact or do nothing</inlineHelpText>
+    <label>On New HM Contact</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>Contact</fullName>
+                <default>false</default>
+                <label>Contact</label>
+            </value>
+            <value>
+                <fullName>Lead</fullName>
+                <default>false</default>
+                <label>Lead</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

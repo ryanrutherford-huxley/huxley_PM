@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Clean Up Unsuccessful billable {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Clean Up Unsuccessful billable</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Billable_Status</name>
+        <label>Update Billable Status</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Unsuccessful_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Data Quality: Short recording Patient</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Unsuccessful_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Post-ship: Patient Refusal</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Unsuccessful_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Post-Ship: Patient Unresponsive</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Unsuccessful_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Provider error: post-ship</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Unsuccessful_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Contraindicated</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Study_Billable_Status__c</field>
+            <value>
+                <stringValue>Billable</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Billable_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Study_Success_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unsuccessful</stringValue>
+            </value>
+        </filters>
+        <object>Study__c</object>
+        <schedule>
+            <frequency>Once</frequency>
+            <startDate>2025-08-30</startDate>
+            <startTime>13:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

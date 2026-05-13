@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Mailchimp_List__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Lookup to the Mailchimp List</inlineHelpText>
+    <label>Mailchimp List</label>
+    <referenceTo>mone__Mailchimp_List__c</referenceTo>
+    <relationshipLabel>Mailchimp Groups</relationshipLabel>
+    <relationshipName>Mailchimp_Groups</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

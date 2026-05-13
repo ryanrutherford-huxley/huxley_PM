@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study_Success_Status__c</fullName>
+    <label>Study Success Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>true</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Successful</fullName>
+                <default>false</default>
+                <label>Successful</label>
+            </value>
+            <value>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+                <label>Unsuccessful</label>
+            </value>
+            <value>
+                <fullName>Study not attempted</fullName>
+                <default>false</default>
+                <label>Study not attempted</label>
+            </value>
+            <value>
+                <fullName>Contraindicated</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Contraindicated</label>
+            </value>
+            <value>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incomplete</label>
+            </value>
+            <value>
+                <fullName>Successful - Unresponsive</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Successful - Unresponsive</label>
+            </value>
+            <value>
+                <fullName>Unresponsive_Patient</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unresponsive Patient</label>
+            </value>
+            <value>
+                <fullName>Unsuccessful - Lost In Transit</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unsuccessful - Lost In Transit</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

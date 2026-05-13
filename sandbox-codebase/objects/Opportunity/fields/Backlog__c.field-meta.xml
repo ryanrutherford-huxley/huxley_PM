@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Backlog__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Does the customer have a backlog?  Consider adding the reason to the description.</description>
+    <label>Backlog?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

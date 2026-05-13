@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quality_Review_Required__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box to route this study to quality for review</description>
+    <inlineHelpText>Check this box if any feedback given by the patient may require a review by quality</inlineHelpText>
+    <label>Quality Review Required</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

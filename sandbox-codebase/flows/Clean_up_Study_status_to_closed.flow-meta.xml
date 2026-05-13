@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Clean up Study status to closed {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Clean up Study status to closed</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Clean_Up_Update_Study_Status_to_closed</name>
+        <label>Clean Up Update Study Status to closed</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Complete</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Clean_Up_Update_Study_Status_to_closed</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Date_Received_by_Huxley__c</field>
+            <operator>NotEqualTo</operator>
+        </filters>
+        <filters>
+            <field>Study_Success_Decision_Date__c</field>
+            <operator>NotEqualTo</operator>
+        </filters>
+        <filters>
+            <field>Study_Success_Status__c</field>
+            <operator>NotEqualTo</operator>
+        </filters>
+        <object>Study__c</object>
+        <schedule>
+            <frequency>Once</frequency>
+            <startDate>2025-08-29</startDate>
+            <startTime>22:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

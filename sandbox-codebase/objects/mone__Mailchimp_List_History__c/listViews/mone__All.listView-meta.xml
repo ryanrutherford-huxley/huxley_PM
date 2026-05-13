@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__All</fullName>
+    <columns>NAME</columns>
+    <columns>mone__List_Id__c</columns>
+    <columns>mone__Existing__c</columns>
+    <columns>mone__Imports__c</columns>
+    <columns>mone__Optins__c</columns>
+    <columns>mone__Subscribed__c</columns>
+    <columns>mone__Unsubscribed__c</columns>
+    <columns>mone__Reconfirm__c</columns>
+    <columns>mone__Cleaned__c</columns>
+    <columns>mone__Pending__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

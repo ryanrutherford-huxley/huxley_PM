@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quality_Review_Required</fullName>
+    <columns>NAME</columns>
+    <columns>Quality_Review_Required__c</columns>
+    <columns>Feedback_Type__c</columns>
+    <columns>Notes_for_Quality_Team__c</columns>
+    <columns>Quality_Review_Complete__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Quality_Review_Required__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Quality_Review_Complete__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Quality Review Required</label>
+</ListView>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unbillable_Reason__c</fullName>
+    <inlineHelpText>Unresponsive Patient - Pre-ship: Can&apos;t reach patient to schedule shipping/contact info incorrect
+Unresponsive Patient - Post-ship: Patient held device for 30 days or more and is unresponsive
+Contraindicated - Order level, patient has permanent pace maker, etc
+Multiple Unsuccessful Studies - Patient has 2+ unsuccessful studies
+Patient Refusal - Pre-ship: patient indicates they don&apos;t want to test or want to delay
+Patient Refusal - Post-ship: patient indicates they won&apos;t take test after receiving</inlineHelpText>
+    <label>Unbillable Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contraindicated</fullName>
+                <default>false</default>
+                <label>Contraindicated</label>
+            </value>
+            <value>
+                <fullName>Multiple Unsuccessful Studies</fullName>
+                <default>false</default>
+                <label>Multiple Unsuccessful Studies</label>
+            </value>
+            <value>
+                <fullName>Patient Refusal: Post-ship</fullName>
+                <default>false</default>
+                <label>Patient Refusal: Post-ship</label>
+            </value>
+            <value>
+                <fullName>Patient Refusal: Pre-ship</fullName>
+                <default>false</default>
+                <label>Patient Refusal: Pre-ship</label>
+            </value>
+            <value>
+                <fullName>Patient Unresponsive: Post-Ship</fullName>
+                <default>false</default>
+                <label>Patient Unresponsive: Post-Ship</label>
+            </value>
+            <value>
+                <fullName>Patient Unresponsive: Pre-Ship</fullName>
+                <default>false</default>
+                <label>Patient Unresponsive: Pre-Ship</label>
+            </value>
+            <value>
+                <fullName>Provider Cancelled Order</fullName>
+                <default>false</default>
+                <label>Provider Cancelled Order</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

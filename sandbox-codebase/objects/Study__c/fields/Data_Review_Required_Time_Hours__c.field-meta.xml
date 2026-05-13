@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Review_Required_Time_Hours__c</fullName>
+    <description>Represents the amount of time data review has been required</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Study_Success_Decision_Date__c), NOW() - Data_Upload_Date__c, Study_Success_Decision_Date__c - Data_Upload_Date__c)*24</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Data Review Required Time (Hours)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

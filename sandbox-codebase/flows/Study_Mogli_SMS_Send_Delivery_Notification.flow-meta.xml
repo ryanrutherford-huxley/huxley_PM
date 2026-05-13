@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <decisions>
+        <name>Found_Delivery_Notification_Template</name>
+        <label>Found Delivery Notification Template?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: No Template</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Found_Template</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Delivery_Notification_Template</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Delivery_Notification</targetReference>
+            </connector>
+            <label>Outcome: Found Template</label>
+        </rules>
+    </decisions>
+    <description>This automation send a delivery notification to the patient when the package has been delivered to their location and the Study.Date_Received_by_Patient__c is populated.
+https://basecamp.com/2583453/projects/19794483/todos/515667807
+Add Logic For Non-Traditional Provider Account SMS Protocol and Patient Do Not Send Automated SMS
+https://basecamp.com/2583453/projects/19794483/todos/514550599</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formula_TemplateDetails</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Delivery_Notification_Template.Mogli_SMS__Name__c} &amp; &quot;, &quot; &amp; {!Get_Delivery_Notification_Template.Id}</expression>
+    </formulas>
+    <interviewLabel>(Study) Mogli SMS Send Delivery Notification {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Study) Mogli SMS Send Delivery Notification</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Send a message to the patient when the package has been delivered to their location</description>
+        <name>Send_Delivery_Notification</name>
+        <label>Send Delivery Notification</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Mogli_SMS__Contact__c</field>
+            <value>
+                <elementReference>$Record.Patient__r.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Direction__c</field>
+            <value>
+                <stringValue>Outgoing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Gateway__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Message__c</field>
+            <value>
+                <elementReference>Get_Delivery_Notification_Template.Mogli_SMS__Text__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Template__c</field>
+            <value>
+                <elementReference>formula_TemplateDetails</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Phone_Number__c</field>
+            <value>
+                <elementReference>$Record.Mogli_Number_from_Person__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Status__c</field>
+            <value>
+                <stringValue>Queued</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Study__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Mogli_SMS__SMS__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>5A. Delivery Notification</description>
+        <name>Get_Delivery_Notification_Template</name>
+        <label>Get Delivery Notification Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Delivery_Notification_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>5A. Delivery Notification</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Delivery_Notification_Template</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Date_Received_by_Patient__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Patient_No_Automated_SMS__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Send_Delivery_Notification__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Study__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

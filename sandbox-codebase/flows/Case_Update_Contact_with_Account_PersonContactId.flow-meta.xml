@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>https://basecamp.com/2583453/projects/19794483/todos/503097102
+Related Record Lightning Page Components can only show fields of the object lookup which is challenging for PersonAccounts</description>
+    <environments>Default</environments>
+    <interviewLabel>(Case) Update Contact with Account PersonContactId {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Case) Update Contact with Account PersonContactId</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>The Contact lookup field should always match the Account on the Case if it is a Person Account (Patient record type)</description>
+        <name>Update_Contact_Field</name>
+        <label>Update Contact Field</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>$Record.Account.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Contact_Field</targetReference>
+        </connector>
+        <filterFormula>{!$Record.Account.IsPersonAccount} = True &amp;&amp;
+OR(
+ISNEW() &amp;&amp; NOT(ISBLANK({!$Record.AccountId})),
+ISCHANGED({!$Record.AccountId})
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

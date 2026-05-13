@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <decisions>
+        <name>Decision_Found_Open_Mogli_Forms</name>
+        <label>Decision: Found Open Mogli Forms?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: No Open Forms</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Open_Forms_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Open_Forms</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Transform_Open_Mogli_Forms</targetReference>
+            </connector>
+            <label>Outcome: Open Forms Found</label>
+        </rules>
+    </decisions>
+    <description>When using Mogli Form Templates for Questions and Responses, having multiple active forms simultaneously can result in unexpected behavior as the Mogli Response may attempt to &apos;listen&apos; to the SMS recipient&apos;s message and respond using two different form templates. https://basecamp.com/2583453/projects/19794483/todos/515495834</description>
+    <environments>Default</environments>
+    <interviewLabel>(Mogli Form) Complete Previous Active Forms {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Mogli Form) Complete Previous Active Forms When New Form Created</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Only 1 Mogli Form should be &apos;open&apos; for a single SMS recipient, otherwise responses to the recipient responses may behave unexpectedly. This element gets all other open forms.</description>
+        <name>Get_Open_Forms</name>
+        <label>Get Open Forms</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Found_Open_Mogli_Forms</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Complete</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Mogli_SMS__Contact__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Mogli_SMS__Contact__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Mogli_SMS__Form__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mogli_SMS__Status__c</queriedFields>
+        <queriedFields>Mogli_SMS__Contact__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Form_Templates</name>
+        <label>Update Form Templates</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>Transform_Open_Mogli_Forms</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Open_Forms</targetReference>
+        </connector>
+        <object>Mogli_SMS__Form__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <transforms>
+        <description>Assign Status = Complete</description>
+        <name>Transform_Open_Mogli_Forms</name>
+        <label>Transform Open Mogli Forms</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Form_Templates</targetReference>
+        </connector>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <objectType>Mogli_SMS__Form__c</objectType>
+        <scale>0</scale>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <transformValues>
+            <transformValueActions>
+                <outputFieldApiName>Id</outputFieldApiName>
+                <transformType>Map</transformType>
+                <value>
+                    <elementReference>Get_Open_Forms[$EachItem].Id</elementReference>
+                </value>
+            </transformValueActions>
+            <transformValueActions>
+                <outputFieldApiName>Mogli_SMS__Status__c</outputFieldApiName>
+                <transformType>Map</transformType>
+                <value>
+                    <stringValue>Completed</stringValue>
+                </value>
+            </transformValueActions>
+        </transformValues>
+    </transforms>
+</Flow>

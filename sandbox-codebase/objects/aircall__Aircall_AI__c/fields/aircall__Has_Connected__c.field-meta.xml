@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>aircall__Has_Connected__c</fullName>
+    <deprecated>false</deprecated>
+    <formula>IF( AND(OR(ISPICKVAL(aircall__Call_Type__c, &apos;Inbound&apos;),IF(ISPICKVAL(aircall__Call_Type__c, &apos;Outbound&apos;),IF(CONTAINS(LOWER(aircall__Subjects__c),&apos;un-answered&apos;),false,true ),false)),!aircall__Is_Missed_Call__c,! aircall__IsVoiceMail__c ) , true, false)</formula>
+    <label>Has Connected</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

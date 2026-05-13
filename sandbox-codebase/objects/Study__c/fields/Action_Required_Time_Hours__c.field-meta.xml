@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Required_Time_Hours__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Address_Confirmation_Required__c ,
+			Address_Confirmation_Time__c,
+			IF(Packaging_Required__c, Time_to_Pack_and_Ship_Hours__c ,
+						IF(Instructional_Call_Required__c,
+									 Instructional_Call_Required_Time_Hours__c ,
+									IF(Study_Follow_up_Required__c, 
+												Study_Follow_Up_Required_Time_Hours__c,
+												IF(Processing_Required__c,
+															 Processing_Required_Time_Hours__c,
+															IF(Huxley_Data_Review_Required__c,
+																		 Data_Review_Required_Time_Hours__c ,
+																		NULL
+																	)
+														)
+											)
+								)
+					)
+		)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Action Required Time (Hours)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <decisions>
+        <name>Found_First_Follow_Up_Template</name>
+        <label>Found First Follow Up Template?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: First Follow Up Template Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_First_Follow_Up_Template_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_First_Follow_Up_Question_Template</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Return_Instructions</targetReference>
+            </connector>
+            <label>Outcome: First Follow Up Template Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Found_Mogli_Template</name>
+        <label>Found Mogli Template?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: No Mogli Template Found</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Found_Mogli_Template</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varRecord_MogliTemplate</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Follow_Up_Message</targetReference>
+            </connector>
+            <label>Outcome: Found Mogli Template</label>
+        </rules>
+    </decisions>
+    <description>Automation for following up after the Expected Study Date is determined.
+https://basecamp.com/2583453/projects/19794483/todos/515688158
+Add logic to opt out of all follow-up series manually.
+https://basecamp.com/2583453/projects/19794483/todos/515712884
+Add Logic For Non-Traditional Provider Account SMS Protocol and Patient Do Not Send Automated SMS
+https://basecamp.com/2583453/projects/19794483/todos/514550599</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Evaluates whether the calculated scheduled date (9AM on the Expected Study Date) is before the Flow&apos;s trigger date time</description>
+        <name>formula_ScheduledDateLessThanNow</name>
+        <dataType>Boolean</dataType>
+        <expression>{!formula_ScheduledDateTime} &lt; {!$Flow.CurrentDateTime}</expression>
+    </formulas>
+    <formulas>
+        <description>Send the SMS at 14:00 GMT time. (9 AM EST)</description>
+        <name>formula_ScheduledDateTime</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TEXT(DATEVALUE({!$Record.Expected_Study_Date__c}))&amp;&quot; 14:00:00&quot;)</expression>
+    </formulas>
+    <formulas>
+        <description>Send the SMS in 1 minutes if the Expected Study Date is the same date as TODAY()</description>
+        <name>formula_SendSMSNow</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime} + (1/1440)</expression>
+    </formulas>
+    <formulas>
+        <description>Used to enrich the SMS message with details about the Mogli template used</description>
+        <name>formula_TemplateDetails</name>
+        <dataType>String</dataType>
+        <expression>{!varRecord_MogliTemplate.Mogli_SMS__Name__c} &amp; &quot;, &quot; &amp; {!varRecord_MogliTemplate.Id}</expression>
+    </formulas>
+    <interviewLabel>(Study) Mogli SMS Follow Up Series {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Study) Mogli SMS Follow Up Series</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Sends the Mogli SMS message to the patient to remind them to return the medical device.</description>
+        <name>Send_Follow_Up_Message</name>
+        <label>Send Follow Up Message</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Mogli_SMS__Contact__c</field>
+            <value>
+                <elementReference>$Record.Patient__r.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Direction__c</field>
+            <value>
+                <stringValue>Outgoing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Gateway__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Message__c</field>
+            <value>
+                <elementReference>varRecord_MogliTemplate.Mogli_SMS__Text__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Template__c</field>
+            <value>
+                <elementReference>formula_TemplateDetails</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Phone_Number__c</field>
+            <value>
+                <elementReference>$Record.Mogli_Number_from_Person__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Status__c</field>
+            <value>
+                <stringValue>Queued</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Study__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Mogli_SMS__SMS__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Sends the Mogli SMS message to the patient to remind them to return the medical device while using the Form Template&apos;s question template.</description>
+        <name>Send_Return_Instructions</name>
+        <label>Send Return Instructions</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Mogli_SMS__Contact__c</field>
+            <value>
+                <elementReference>$Record.Patient__r.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Direction__c</field>
+            <value>
+                <stringValue>Outgoing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Gateway__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Message__c</field>
+            <value>
+                <elementReference>Get_First_Follow_Up_Question_Template.Mogli_SMS__Message_Text__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Template__c</field>
+            <value>
+                <elementReference>Get_First_Follow_Up_Question_Template.Mogli_SMS__FormTemplate__r.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Phone_Number__c</field>
+            <value>
+                <elementReference>$Record.Mogli_Number_from_Person__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Status__c</field>
+            <value>
+                <stringValue>Queued</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Study__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Mogli_SMS__SMS__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_14_Day_Follow_Up_Template</name>
+        <label>Get 14 Day Follow Up Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Mogli_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Study Follow Up: 14 Days</stringValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <outputReference>varRecord_MogliTemplate</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mogli_SMS__Name__c</queriedFields>
+        <queriedFields>Mogli_SMS__Text__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_20_Day_Follow_Up_Template</name>
+        <label>Get 20 Day Follow Up Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Mogli_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Study Follow Up: 20 Days</stringValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <outputReference>varRecord_MogliTemplate</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mogli_SMS__Name__c</queriedFields>
+        <queriedFields>Mogli_SMS__Text__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_30_Day_Follow_Up_Template</name>
+        <label>Get 30 Day Follow Up Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Mogli_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Study Follow Up: 30 Days</stringValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <outputReference>varRecord_MogliTemplate</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mogli_SMS__Name__c</queriedFields>
+        <queriedFields>Mogli_SMS__Text__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_6_Day_Follow_Up_Template</name>
+        <label>Get 6 Day Follow Up Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Mogli_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Study Follow Up: 6 Days</stringValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <outputReference>varRecord_MogliTemplate</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mogli_SMS__Name__c</queriedFields>
+        <queriedFields>Mogli_SMS__Text__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_8_Day_Follow_Up_Templat</name>
+        <label>Get 8 Day Follow Up Templat</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Mogli_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Study Follow Up: 8 Days</stringValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <outputReference>varRecord_MogliTemplate</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mogli_SMS__Name__c</queriedFields>
+        <queriedFields>Mogli_SMS__Text__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <description>Uses Question Template from Mogli Form Template</description>
+        <name>Get_First_Follow_Up_Question_Template</name>
+        <label>Get First Follow-Up Question Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_First_Follow_Up_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>First Follow-up 1A</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Mogli_SMS__QuestionTemplate__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Expected_Study_Date__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Date_Return_Initiated__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Cellular_Upload_Complete__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Opt_Out_Follow_Up_Series__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Patient_No_Automated_SMS__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Send_Follow_Up_Series__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Study__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>X3_Day_Follow_Up</name>
+            <connector>
+                <targetReference>Get_First_Follow_Up_Question_Template</targetReference>
+            </connector>
+            <label>3 Day Follow Up</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Study_Follow_Up_3_Days__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X6_Day_Follow_Up</name>
+            <connector>
+                <targetReference>Get_6_Day_Follow_Up_Template</targetReference>
+            </connector>
+            <label>6 Day Follow Up</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Study_Follow_Up_6_Days__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X8_Day_Follow_Up</name>
+            <connector>
+                <targetReference>Get_8_Day_Follow_Up_Templat</targetReference>
+            </connector>
+            <label>8 Day Follow Up</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Study_Follow_Up_8_Days__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X14_Day_Follow_Up</name>
+            <connector>
+                <targetReference>Get_14_Day_Follow_Up_Template</targetReference>
+            </connector>
+            <label>14 Day Follow Up</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Study_Follow_Up_14_Days__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X20_Day_Follow_Up</name>
+            <connector>
+                <targetReference>Get_20_Day_Follow_Up_Template</targetReference>
+            </connector>
+            <label>20 Day Follow Up</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Study_Follow_Up_20_Days__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X30_Day_Follow_Up</name>
+            <connector>
+                <targetReference>Get_30_Day_Follow_Up_Template</targetReference>
+            </connector>
+            <label>30 Day Follow Up</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Study_Follow_Up_30_Days__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>varRecord_MogliTemplate</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Mogli_SMS__SMS_Template__c</objectType>
+    </variables>
+</Flow>

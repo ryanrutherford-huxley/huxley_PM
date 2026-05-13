@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Turnaround_Time_Days__c</fullName>
+    <description>Represents the time between the order date and the date the order has a billable decision date.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Billable_Decision_Date__c), NULL, Billable_Decision_Date__c - CreatedDate)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Order Turnaround Time (Days)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

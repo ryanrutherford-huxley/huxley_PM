@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>aircall__Customer_Mood__c</fullName>
+    <deprecated>false</deprecated>
+    <label>AI Sentiment</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>NEUTRAL</fullName>
+                <default>false</default>
+                <label>NEUTRAL</label>
+            </value>
+            <value>
+                <fullName>POSITIVE</fullName>
+                <default>false</default>
+                <label>POSITIVE</label>
+            </value>
+            <value>
+                <fullName>NEGATIVE</fullName>
+                <default>false</default>
+                <label>NEGATIVE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

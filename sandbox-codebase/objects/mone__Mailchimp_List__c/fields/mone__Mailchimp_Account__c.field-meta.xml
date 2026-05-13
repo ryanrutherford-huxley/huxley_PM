@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Mailchimp_Account__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Lookup to the Mailchimp Account for this list.</inlineHelpText>
+    <label>Mailchimp Account</label>
+    <referenceTo>mone__Mailchimp_Account__c</referenceTo>
+    <relationshipLabel>Mailchimp Audiences</relationshipLabel>
+    <relationshipName>Mailchimp_Lists</relationshipName>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

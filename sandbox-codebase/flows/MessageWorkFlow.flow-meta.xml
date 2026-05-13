@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>SendAddressConfirmation</description>
+        <name>SendAddressConfirmation</name>
+        <label>SendAddressConfirmation</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>heymarket__SendMessageAction</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_Case</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>ADDR_1A</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>phone</name>
+            <value>
+                <elementReference>Get_Case_Record.ContactPhone</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>heymarket__SendMessageAction</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <description>SendMessageADDR2A</description>
+        <name>SendMessageADDR2A</name>
+        <label>SendMessageADDR2A</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>heymarket__SendMessageAction</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_Case_ADDR2A</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>ADDR_2A</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>phone</name>
+            <value>
+                <elementReference>Get_Case_Record.ContactPhone</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>heymarket__SendMessageAction</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>64.0</apiVersion>
+    <decisions>
+        <description>Next Action</description>
+        <name>Next_Action</name>
+        <label>Next Action</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>WaitingForOptIn</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_Record.Next_Action__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>WaitingForOpt-in</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SendAddressConfirmation</targetReference>
+            </connector>
+            <label>WaitingForOptIn</label>
+        </rules>
+        <rules>
+            <name>WaitingConfirmationADDR_1A</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_Record.Next_Action__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>WaitingConfirmationADDR_1A</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SendMessageADDR2A</targetReference>
+            </connector>
+            <label>WaitingConfirmationADDR_1A</label>
+        </rules>
+    </decisions>
+    <description>Message Work Flow</description>
+    <environments>Default</environments>
+    <interviewLabel>MessageWorkFlow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>MessageWorkFlow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Create Record for Task</description>
+        <name>Create_Record_for_Task</name>
+        <label>Create Record for Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>&quot;ADDR_1A Sent&quot;</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>Get_Case_Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create Record for Task ADDR2A</description>
+        <name>Create_Record_for_Task_ADDR2A</name>
+        <label>Create Record for Task ADDR2A</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>&quot;ADDR_2A Sent&quot;</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>Get_Case_Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Get Case Record for the Message</description>
+        <name>Get_Case_Record</name>
+        <label>Get Case Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Next_Action</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.heymarket__Contact__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Case</description>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Record_for_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Next_Action__c</field>
+            <value>
+                <stringValue>WaitingConfirmationADDR_1A</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Case ADDR2A</description>
+        <name>Update_Case_ADDR2A</name>
+        <label>Update Case ADDR2A</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Record_for_Task_ADDR2A</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Next_Action__c</field>
+            <value>
+                <stringValue>WaitingConfirmationADDR_2A</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>heymarket__Text__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>yes</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>heymarket__Text__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>YES</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>heymarket__Text__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Yes</stringValue>
+            </value>
+        </filters>
+        <object>heymarket__Message__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Get_Case_Record</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>ADDR_1A</description>
+        <name>ADDR_1A</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Thank you for opting in,  {!Get_Case_Record.Account.FirstName}! We&apos;re getting your sleep test ready to ship.
+Please confirm your shipping address: 
+
+{!Get_Case_Record.Account.ShippingStreet},
+{!Get_Case_Record.Account.ShippingCity},
+{!Get_Case_Record.Account.ShippingState},
+{!Get_Case_Record.Account.ShippingCountry},
+{!Get_Case_Record.Account.ShippingPostalCode}.
+
+Reply YES to confirm or NO to provide a new address.  
+
+☎️ Or give us a call at 678-944-7449. We’re here to help!</text>
+    </textTemplates>
+    <textTemplates>
+        <description>ADDR_2A</description>
+        <name>ADDR_2A</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>👍Thank you for confirming! To avoid delays in your sleep assessment, we recommend completing and returning your sleep test as soon as you can. Setup is simple—and most patients wear the device the night it arrives and drop it back in the mail the next morning!
+
+⏱️ Unless you request a different date, your test will be shipped shortly and should arrive within 2–4 business days.
+
+📅Need a different date? Just reply with an alternative test date in this format:
+Weekday, Month Day
+
+📞Or give us a call at 678-944-7449—we’re always happy to help!</text>
+    </textTemplates>
+    <variables>
+        <description>If yes receive as Yes</description>
+        <name>ConsentTextMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </variables>
+</Flow>

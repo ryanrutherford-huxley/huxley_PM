@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Clean up short recording {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Clean up short recording</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_unsuccessful_reason_short_recording</name>
+        <label>Update unsuccessful reason short recording</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Study_Issue_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Short Recording</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Unsuccessful_Reason__c</field>
+            <value>
+                <stringValue>Data Quality: Short recording Patient</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_unsuccessful_reason_short_recording</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Unsuccessful_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Study_Success_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unsuccessful</stringValue>
+            </value>
+        </filters>
+        <object>Study__c</object>
+        <schedule>
+            <frequency>Once</frequency>
+            <startDate>2025-08-29</startDate>
+            <startTime>22:30:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

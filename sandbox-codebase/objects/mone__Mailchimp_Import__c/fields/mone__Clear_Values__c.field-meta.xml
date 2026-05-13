@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Clear_Values__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Clear blank values when updating Mailchcimp.</inlineHelpText>
+    <label>Clear Values</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

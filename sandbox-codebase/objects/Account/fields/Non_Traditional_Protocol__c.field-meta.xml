@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Traditional_Protocol__c</fullName>
+    <label>Non-Traditional Protocol</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Do Not Send Automated SMS</fullName>
+                <default>false</default>
+                <label>Do Not Send Automated SMS</label>
+            </value>
+            <value>
+                <fullName>SMS Opt In/Address Confirmation</fullName>
+                <default>false</default>
+                <label>SMS Opt In/Address Confirmation</label>
+            </value>
+            <value>
+                <fullName>Ship Confirmation</fullName>
+                <default>false</default>
+                <label>Ship Confirmation</label>
+            </value>
+            <value>
+                <fullName>Delivery Notification</fullName>
+                <default>false</default>
+                <label>Delivery Notification</label>
+            </value>
+            <value>
+                <fullName>Study Reminder/Return Instructions</fullName>
+                <default>false</default>
+                <label>Study Reminder/Return Instructions</label>
+            </value>
+            <value>
+                <fullName>Follow Up Series</fullName>
+                <default>false</default>
+                <label>Follow Up Series</label>
+            </value>
+            <value>
+                <fullName>PSAT</fullName>
+                <default>false</default>
+                <label>PSAT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

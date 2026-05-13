@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_PSat_Survey_Required__c</fullName>
+    <description>Send PSat Survey is Required if the Study is in Inbound status and the Patient Satisfaction Survey has NOT been sent yet. This ensures this value is true right after the return is initiated and up until the device is delivered back to Huxley at which point Receiving the device back should be the Action Required. Of course, as long as the PSat Survey Sent has also not been checked yet</description>
+    <formula>AND(TEXT( Status__c ) = &quot;Inbound&quot;, NOT( Patient_Satisfaction_Survey_Sent__c ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Send PSat Survey Required</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

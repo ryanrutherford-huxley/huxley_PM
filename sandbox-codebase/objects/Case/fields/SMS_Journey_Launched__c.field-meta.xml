@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SMS_Journey_Launched__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used in record triggered flow to trigger an update on the Patient record to send the opt in Mogli SMS Message</description>
+    <label>SMS Journey Launched?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

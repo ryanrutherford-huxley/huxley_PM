@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>aircall__IsVoiceMail__c</fullName>
+    <deprecated>false</deprecated>
+    <formula>BEGINS(
+LOWER(aircall__Subjects__c),
+&apos;voicemail&apos;
+)</formula>
+    <label>Is VoiceMail</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

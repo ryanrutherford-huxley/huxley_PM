@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <decisions>
+        <description>Discerns which question template was used</description>
+        <name>Decision_Which_Question_Template</name>
+        <label>Decision: Which Question Template?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X0_Consent_Message_OptIn</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Mogli_SMS__QuestionTemplate__r.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0 Consent Message</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>formula_YesMessage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Patient_Opt_In</targetReference>
+            </connector>
+            <label>0 Consent Message OptIn</label>
+        </rules>
+        <rules>
+            <name>X0_Consent_Message_OptOut</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Mogli_SMS__QuestionTemplate__r.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0 Consent Message</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>formula_NoMessage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Patient_Opt_Out</targetReference>
+            </connector>
+            <label>0 Consent Message OptOut</label>
+        </rules>
+        <rules>
+            <name>X1A_Address_Confirmation_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Mogli_SMS__QuestionTemplate__r.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>1A. Initial Address Confirmation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>formula_YesMessage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Patient_Address_Confirmed</targetReference>
+            </connector>
+            <label>1A Address Confirmation Yes</label>
+        </rules>
+        <rules>
+            <name>X1A_Address_Confirmation_No</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Mogli_SMS__QuestionTemplate__r.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>1A. Initial Address Confirmation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>formula_NoMessage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Patient_Address_Update_Required</targetReference>
+            </connector>
+            <label>1A Address Confirmation No</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Contact_related_to_SMS_Response_Message</name>
+        <label>Is Contact related to SMS Response Message</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: Response is Unrelated to a Contact record</defaultConnectorLabel>
+        <rules>
+            <name>Response_Is_Related_to_Contact_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Mogli_SMS__Mogli_Response__r.Mogli_SMS__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Which_Question_Template</targetReference>
+            </connector>
+            <label>Response Is Related to Contact Record</label>
+        </rules>
+    </decisions>
+    <description>Handles SMS Responses to Mogli Form Templates to update related records depending on the Patient&apos;s response</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formula_NoMessage</name>
+        <dataType>Boolean</dataType>
+        <expression>LOWER({!$Record.Mogli_SMS__Response_Long__c}) = &apos;no&apos;
+||
+LOWER({!$Record.Mogli_SMS__Response_Long__c}) = &apos;n&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>formula_YesMessage</name>
+        <dataType>Boolean</dataType>
+        <expression>LOWER({!$Record.Mogli_SMS__Response_Long__c}) = &apos;yes&apos;
+||
+LOWER({!$Record.Mogli_SMS__Response_Long__c}) = &apos;y&apos;</expression>
+    </formulas>
+    <interviewLabel>(Mogli Question Response Incoming) Update Related Patient or Study Records {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Mogli Question Response Incoming) Update Related Patient or Study Records</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Patient&apos;s Address is confirmed</description>
+        <name>Update_Patient_Address_Confirmed</name>
+        <label>Update Patient Address Confirmed</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Study_with_Address_Confirmed_DateTime</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Mogli_SMS__Mogli_Response__r.Mogli_SMS__Contact__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Address_Confirmed__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SMS_Journey_Status__c</field>
+            <value>
+                <stringValue>Address Confirmed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Patient&apos;s Address is awaiting address input/update</description>
+        <name>Update_Patient_Address_Update_Required</name>
+        <label>Update Patient: Address Update Required</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Mogli_SMS__Mogli_Response__r.Mogli_SMS__Contact__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Address_Update_Required__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SMS_Journey_Status__c</field>
+            <value>
+                <stringValue>Waiting For Address</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Verifies patient&apos;s double opt in status for receiving SMS</description>
+        <name>Update_Patient_Opt_In</name>
+        <label>Update Patient Opt In</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Mogli_SMS__Mogli_Response__r.Mogli_SMS__Contact__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>SMS_Double_Opt_In__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SMS_Journey_Status__c</field>
+            <value>
+                <stringValue>Initial Address Confirmation</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Verifies patient&apos;s double opt in status for receiving SMS. Explicitly Opt Out from Mogli SMS</description>
+        <name>Update_Patient_Opt_Out</name>
+        <label>Update Patient Opt Out</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Mogli_SMS__Mogli_Response__r.Mogli_SMS__Contact__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Opt_Out__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SMS_Double_Opt_In__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SMS_Journey_Status__c</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Study_with_Address_Confirmed_DateTime</name>
+        <label>Update Study with Address Confirmed DateTime</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Patient__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Mogli_SMS__Mogli_Response__r.Mogli_SMS__Contact__r.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Address_Confirmed_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Study__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Contact_related_to_SMS_Response_Message</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Mogli_Response__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__QuestionResponse__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

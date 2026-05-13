@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Custom_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>mone__Member_Id__c</fields>
+    <fields>mone__Email__c</fields>
+    <fields>mone__Unique_Email_Id__c</fields>
+    <fields>mone__Contact_Id__c</fields>
+    <fields>mone__Full_Name__c</fields>
+    <fields>mone__Web_Id__c</fields>
+    <fields>mone__Email_Type__c</fields>
+    <fields>mone__Status__c</fields>
+    <fields>mone__Consents_To_One_To_One_Messaging__c</fields>
+    <label>Custom Compact Layout</label>
+</CompactLayout>

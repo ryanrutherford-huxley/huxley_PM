@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pod_not_returned__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check here if the pod is lost or was not returned by the patient</description>
+    <inlineHelpText>Check here if the pod is lost or was not returned by the patient</inlineHelpText>
+    <label>Pod not returned</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

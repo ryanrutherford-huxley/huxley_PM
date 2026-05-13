@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Needs_Address_Confirmation</fullName>
+    <columns>NAME</columns>
+    <columns>Patient__c</columns>
+    <columns>Provider_Account__c</columns>
+    <columns>Status__c</columns>
+    <columns>Action_Required__c</columns>
+    <columns>Action_Required_Time_Hours__c</columns>
+    <columns>Study_Age_Days__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <filters>
+        <field>Address_Confirmation_Required__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Need Address Confirmation</label>
+</ListView>

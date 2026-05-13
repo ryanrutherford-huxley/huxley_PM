@@ -1,0 +1,19 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "huxley-salesforce",
+  "namespace": "",
+  "replacements": [
+    {
+      "filename": "force-app/main/default/namedCredentials/Portal_NC.namedCredential-meta.xml",
+      "stringToReplace": "__PORTAL_BASE_URL__",
+      "replaceWithEnv": "PORTAL_BASE_URL"
+    }
+  ],
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "62.0"
+}

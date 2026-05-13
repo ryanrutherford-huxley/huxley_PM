@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Timestamp_Signup__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>The date and time the subscriber signed up for the list.</inlineHelpText>
+    <label>Timestamp Signup</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patient_Order</fullName>
+    <active>true</active>
+    <businessProcess>Patient Order Process</businessProcess>
+    <label>Patient Order</label>
+    <picklistValues>
+        <picklist>Billable_Status__c</picklist>
+        <values>
+            <fullName>Billable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unbillable</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Next_Action__c</picklist>
+        <values>
+            <fullName>ADDR_1A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ADDR_1B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ADDR_2A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WaitingConfirmationADDR_1A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WaitingConfirmationADDR_2A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WaitingConfirmationTEST_3A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WaitingForOpt-in</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Portal</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Critical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Complex functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions not clear</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Shipping_Carrier__c</picklist>
+        <values>
+            <fullName>DHL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FedEx</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Shipped</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UPS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USPS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Patient Case Study</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unbillable_Reason__c</picklist>
+        <values>
+            <fullName>Contraindicated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiple Unsuccessful Studies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient Refusal%3A Post-ship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient Refusal%3A Pre-ship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient Unresponsive%3A Post-Ship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient Unresponsive%3A Pre-Ship</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

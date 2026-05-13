@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quality_Review_Complete__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Quality representative can check this once they have completed their review</description>
+    <inlineHelpText>Quality representative can check this once they have completed their review</inlineHelpText>
+    <label>Quality Review Complete</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

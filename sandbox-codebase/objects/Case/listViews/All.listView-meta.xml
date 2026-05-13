@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>OrderID__c</columns>
+    <columns>NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Billable_Status__c</columns>
+    <columns>Billable_Decision_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Billable_Status__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>All</label>
+</ListView>

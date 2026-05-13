@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Study_Reminder_Text_Required__c</fullName>
+    <description>Send Study Reminder Text Required within a day before the expected study date</description>
+    <formula>AND(
+ISPICKVAL( Status__c, &quot;With Patient&quot; ),
+NOT(ISBLANK( Expected_Study_Date__c )),
+NOT( Study_Reminder_Text_Sent__c ),
+NOW() &gt; Expected_Study_Date__c - 1,
+NOW() &lt; Expected_Study_Date__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Send Study Reminder Text Required</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

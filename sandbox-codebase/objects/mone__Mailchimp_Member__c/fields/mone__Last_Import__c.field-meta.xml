@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Last_Import__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>It contains the last error message returned from Mailchimp. If there are no errors, this field will be empty.</inlineHelpText>
+    <label>Last Import</label>
+    <length>131072</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

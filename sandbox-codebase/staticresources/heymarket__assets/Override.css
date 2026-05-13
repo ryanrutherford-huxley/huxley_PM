@@ -1,0 +1,16 @@
+.uiTabset--default .tabs__item.active>a {
+	border-color: rgb(255, 201, 38) !important;
+}
+.uiTabset--dense>.uiTab.tabs__content {
+	padding-top: 0rem !important;
+}
+.tabs__item>a:hover, .uiTabset--default .tabs__item>a:focus {
+	border-color: rgb(255, 201, 38) !important; 
+	box-shadow: rgb(255, 201, 38) 0 -1px 0 inset;
+}
+/* 
+.slds-utility-panel {
+	height: calc(100vh - 132px) !important;
+    background-color: white;
+    min-height: 252px;
+} */

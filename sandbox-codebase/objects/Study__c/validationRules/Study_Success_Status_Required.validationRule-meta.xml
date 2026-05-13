@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study_Success_Status_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISBLANK( Study_Success_Decision_Date__c )), ISBLANK(TEXT( Study_Success_Status__c )))</errorConditionFormula>
+    <errorDisplayField>Study_Success_Status__c</errorDisplayField>
+    <errorMessage>Study Success Status is Required to Proceed</errorMessage>
+</ValidationRule>

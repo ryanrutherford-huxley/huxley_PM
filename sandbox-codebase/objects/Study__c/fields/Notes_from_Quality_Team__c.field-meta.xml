@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notes_from_Quality_Team__c</fullName>
+    <description>Notes that the quality team would like to add about their review</description>
+    <inlineHelpText>Notes that the quality team would like to add about their review</inlineHelpText>
+    <label>Notes from Quality Team</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>TextArea</type>
+</CustomField>

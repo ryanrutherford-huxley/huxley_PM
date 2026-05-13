@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Last_Sync_Campaign__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>This is the last time this Mailchimp Campaign record was synced to Salesforce.</inlineHelpText>
+    <label>Last Sync Campaign</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

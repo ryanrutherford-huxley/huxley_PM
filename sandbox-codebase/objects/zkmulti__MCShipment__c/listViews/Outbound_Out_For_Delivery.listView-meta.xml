@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outbound_Out_For_Delivery</fullName>
+    <columns>NAME</columns>
+    <columns>Study__c</columns>
+    <columns>zkmulti__Recipient_Name__c</columns>
+    <columns>zkmulti__Shipment_Type__c</columns>
+    <columns>zkmulti__Tracking_Stage__c</columns>
+    <columns>zkmulti__Status_Description__c</columns>
+    <columns>zkmulti__ShipmentStatus__c</columns>
+    <columns>zkmulti__TotalNetCharge__c</columns>
+    <columns>zkmulti__ShipmentDescription__c</columns>
+    <columns>zkmulti__Carrier__c</columns>
+    <columns>zkmulti__Shipment_Deleted__c</columns>
+    <columns>zkmulti__Return_Shipment__c</columns>
+    <columns>zkmulti__Delivered__c</columns>
+    <columns>zkmulti__Label_Image_Type__c</columns>
+    <columns>zkmulti__Ship_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>zkmulti__Shipment_Deleted__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>zkmulti__Status_Description__c</field>
+        <operation>contains</operation>
+        <value>Out for Delivery</value>
+    </filters>
+    <label>Outbound: Out For Delivery</label>
+</ListView>

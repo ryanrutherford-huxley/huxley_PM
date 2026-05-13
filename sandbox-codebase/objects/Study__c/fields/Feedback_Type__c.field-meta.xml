@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Feedback_Type__c</fullName>
+    <label>Feedback Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Device Malfunction</fullName>
+                <default>false</default>
+                <label>Device Malfunction</label>
+            </value>
+            <value>
+                <fullName>Packaging/ Device Damage</fullName>
+                <default>false</default>
+                <label>Packaging/ Device Damage</label>
+            </value>
+            <value>
+                <fullName>Patient Skin Irritation</fullName>
+                <default>false</default>
+                <label>Patient Skin Irritation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

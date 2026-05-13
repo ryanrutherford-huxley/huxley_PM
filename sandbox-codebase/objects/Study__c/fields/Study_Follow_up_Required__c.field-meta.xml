@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study_Follow_up_Required__c</fullName>
+    <formula>AND(ISPICKVAL(Status__c, &quot;With Patient&quot;),
+NOT(ISBLANK(Expected_Study_Date__c)),
+OR(AND(Expected_Study_Date__c + 0.5 &lt; NOW(), ISBLANK(Last_Study_Follow_up_Attempt__c)),
+AND(Expected_Study_Date__c + 0.5 &lt; NOW(), Last_Study_Follow_up_Attempt__c &lt; Expected_Study_Date__c ),
+AND(Last_Study_Follow_up_Attempt__c + 0.5 &lt; NOW(), Last_Study_Follow_up_Attempt__c &gt; Expected_Study_Date__c)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Study Follow-up Required</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

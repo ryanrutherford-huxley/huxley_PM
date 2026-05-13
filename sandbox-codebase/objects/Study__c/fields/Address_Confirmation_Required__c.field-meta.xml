@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Address_Confirmation_Required__c</fullName>
+    <formula>AND(ISBLANK(Address_Confirmed_Date__c),
+OR(ISBLANK(Last_Address_Confirmation_Attempt__c),
+Last_Address_Confirmation_Attempt__c + 0.5 &lt; NOW()
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Address Confirmation Required</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

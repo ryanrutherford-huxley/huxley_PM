@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patient_Hold_Time__c</fullName>
+    <description>Represents how long the patient had the pod in possession. Date return initiated should be populated by Zenkraft shipment automation when the return shipment is scanned and in transit.</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(ISBLANK(Date_Received_by_Patient__c), ISBLANK(Date_Return_Initiated__c)), NULL,
+          Date_Return_Initiated__c - Date_Received_by_Patient__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Patient Hold Time (Days)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

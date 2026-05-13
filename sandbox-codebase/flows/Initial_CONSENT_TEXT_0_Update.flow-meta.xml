@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Consent Text Message</description>
+        <name>Initial_Confirmation</name>
+        <label>Initial Confirmation</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>heymarket__SendMessageAction</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Create_Record_for_Task</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>CONSENTTEXT_0</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>phone</name>
+            <value>
+                <elementReference>$Record.ContactPhone</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>heymarket__SendMessageAction</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>64.0</apiVersion>
+    <description>&quot;Consent text (CONSENT_TEXT__0) is automatically sent to the patient when a new case is created.&quot;</description>
+    <environments>Default</environments>
+    <interviewLabel>Initial CONSENT TEXT__0 Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Initial CONSENT TEXT__0 Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Record_for_Task</name>
+        <label>Create Record for Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>&quot;Consent__0 Text Sent&quot;</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Initial_Confirmation</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <textTemplates>
+        <description>0 - CONSENT TEXT</description>
+        <name>CONSENTTEXT_0</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Hi {!$Record.Account.FirstName}, this is SANSA Express on behalf of {!$Record.Provider_Account__r.Name} . We’d like to send you text updates about your sleep test order — including delivery info and instructions. 
+
+Can we send you updates? 
+
+ Reply YES to opt in
+
+Privacy Policy: https://www.huxleymed.com/privacy-policy-terms-of-use 
+
+T&amp;C: https://huxley-website-static.s3.us-east-1.amazonaws.com/legal/Huxley+HUB++Device+Terms+of+Service.pdf 
+
+Msg &amp; data rates may apply.</text>
+    </textTemplates>
+</Flow>

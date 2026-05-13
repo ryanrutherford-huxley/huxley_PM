@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <decisions>
+        <description>Verify that the patient has not already initiated a return</description>
+        <name>Decision_Check_Date_Return_Initiated_Cellular_Upload_Completed</name>
+        <label>Decision: Check Date Return Initiated &amp; Cellular Upload Completed</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: Return Was Already Initiated</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Return_Not_Initiated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Date_Return_Initiated__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Cellular_Upload_Complete__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Return_Instructions_Template</targetReference>
+            </connector>
+            <label>Outcome: Return Not Initiated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>In some cases, maybe the Expected Study Date is updated to be the same date as when the field was updated</description>
+        <name>Decision_Same_day_or_In_Advance</name>
+        <label>Decision: Same day or In Advance?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Send_Study_Night_Reminder_Scheduled</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome: Schedule Send</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Send_Now</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_ScheduledDateLessThanNow</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Study_Night_Reminder_Now</targetReference>
+            </connector>
+            <label>Outcome: Send Now</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Found_Delivery_Notification_Template</name>
+        <label>Found Delivery Notification Template?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: No Template</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Found_Template</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Study_Night_Reminder_Template</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Same_day_or_In_Advance</targetReference>
+            </connector>
+            <label>Outcome: Found Template</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Found_Return_Instructions_Template</name>
+        <label>Found Return Instructions Template?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: Return Instructions Template Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Return_Instructions_Template_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Return_Instructions_Template</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Return_Instructions</targetReference>
+            </connector>
+            <label>Outcome: Return Instructions Template Found</label>
+        </rules>
+    </decisions>
+    <description>When the Study.Expected Study Date__c is populated, send the SMS for the Study Night when the day arrives for the Expected Study Date
+https://basecamp.com/2583453/projects/19794483/todos/515671327
+Updated Logic to include Scheduled Path for sending the return Instructions
+https://basecamp.com/2583453/projects/19794483/todos/515687396
+Add Logic For Non-Traditional Provider Account SMS Protocol and Patient Do Not Send Automated SMS
+https://basecamp.com/2583453/projects/19794483/todos/514550599</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Used to enrich the SMS message with details about the Mogli template used</description>
+        <name>formula_ReturnInstruction_TemplateDetails</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Return_Instructions_Template.Mogli_SMS__Name__c} &amp; &quot;, &quot; &amp; {!Get_Return_Instructions_Template.Id}</expression>
+    </formulas>
+    <formulas>
+        <description>Evaluates whether the calculated scheduled date (9AM on the Expected Study Date) is before the Flow&apos;s trigger date time</description>
+        <name>formula_ScheduledDateLessThanNow</name>
+        <dataType>Boolean</dataType>
+        <expression>{!formula_ScheduledDateTime} &lt; {!$Flow.CurrentDateTime}</expression>
+    </formulas>
+    <formulas>
+        <description>Send the SMS at 14:00 GMT time. (9 AM EST)</description>
+        <name>formula_ScheduledDateTime</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TEXT(DATEVALUE({!$Record.Expected_Study_Date__c}))&amp;&quot; 14:00:00&quot;)</expression>
+    </formulas>
+    <formulas>
+        <description>Send the SMS in 1 minutes if the Expected Study Date is the same date as TODAY()</description>
+        <name>formula_SendSMSNow</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime} + (1/1440)</expression>
+    </formulas>
+    <formulas>
+        <name>formula_TemplateDetails</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Study_Night_Reminder_Template.Mogli_SMS__Name__c} &amp; &quot;, &quot; &amp; {!Get_Study_Night_Reminder_Template.Id}</expression>
+    </formulas>
+    <interviewLabel>(Study) Mogli SMS Send Study Night Reminder &amp; Return Instructions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Study) Mogli SMS Send Study Night Reminder &amp; Return Instructions</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Sends the Mogli SMS message to the patient to remind them to return the medical device.</description>
+        <name>Send_Return_Instructions</name>
+        <label>Send Return Instructions</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Mogli_SMS__Contact__c</field>
+            <value>
+                <elementReference>$Record.Patient__r.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Direction__c</field>
+            <value>
+                <stringValue>Outgoing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Gateway__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Message__c</field>
+            <value>
+                <elementReference>Get_Return_Instructions_Template.Mogli_SMS__Text__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Template__c</field>
+            <value>
+                <elementReference>formula_ReturnInstruction_TemplateDetails</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Phone_Number__c</field>
+            <value>
+                <elementReference>$Record.Mogli_Number_from_Person__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Status__c</field>
+            <value>
+                <stringValue>Queued</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Study__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Mogli_SMS__SMS__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Sends the Mogli SMS message to the patient to remind them of their study night now</description>
+        <name>Send_Study_Night_Reminder_Now</name>
+        <label>Send Study Night Reminder Now</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Mogli_SMS__Contact__c</field>
+            <value>
+                <elementReference>$Record.Patient__r.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Direction__c</field>
+            <value>
+                <stringValue>Outgoing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Gateway__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Message__c</field>
+            <value>
+                <elementReference>Get_Study_Night_Reminder_Template.Mogli_SMS__Text__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Template__c</field>
+            <value>
+                <elementReference>formula_TemplateDetails</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Phone_Number__c</field>
+            <value>
+                <elementReference>$Record.Mogli_Number_from_Person__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Scheduled_Delivery__c</field>
+            <value>
+                <elementReference>formula_SendSMSNow</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Status__c</field>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Study__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Mogli_SMS__SMS__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Creates a scheduled Mogli SMS message to the patient to remind them of their study night</description>
+        <name>Send_Study_Night_Reminder_Scheduled</name>
+        <label>Send Study Night Reminder Scheduled</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Mogli_SMS__Contact__c</field>
+            <value>
+                <elementReference>$Record.Patient__r.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Direction__c</field>
+            <value>
+                <stringValue>Outgoing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Gateway__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Message__c</field>
+            <value>
+                <elementReference>Get_Study_Night_Reminder_Template.Mogli_SMS__Text__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Mogli_Template__c</field>
+            <value>
+                <elementReference>formula_TemplateDetails</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Phone_Number__c</field>
+            <value>
+                <elementReference>$Record.Mogli_Number_from_Person__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Scheduled_Delivery__c</field>
+            <value>
+                <elementReference>formula_ScheduledDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mogli_SMS__Status__c</field>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Study__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Mogli_SMS__SMS__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>6. Return Instructions</description>
+        <name>Get_Return_Instructions_Template</name>
+        <label>Get Return Instructions Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Return_Instructions_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>6. Return Instructions</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>5B. Study Night Reminder</description>
+        <name>Get_Study_Night_Reminder_Template</name>
+        <label>Get Study Night Reminder Template</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Found_Delivery_Notification_Template</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Mogli_SMS__Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>5B. Study Night Reminder</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Mogli_SMS__SMS_Template__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Study_Night_Reminder_Template</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Expected_Study_Date__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Date_Return_Initiated__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Cellular_Upload_Complete__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Patient_No_Automated_SMS__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Send_Study_Reminder_Return_Instructions__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Study__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>Return_Instruction_Expected_Study_Date_1</name>
+            <connector>
+                <targetReference>Decision_Check_Date_Return_Initiated_Cellular_Upload_Completed</targetReference>
+            </connector>
+            <label>Return Instruction: Expected Study Date = 1</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Return_Instruction_Date__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

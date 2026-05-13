@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Selected_Groups__c</fullName>
+    <deprecated>false</deprecated>
+    <description>JSON Object contains Mailchimp Group Ids. E.g. [&apos;8e4cec7338&apos;, &apos;879133366b&apos;, &apos;3295bf0bcd&apos;, &apos;8d4af72fa3&apos;]</description>
+    <inlineHelpText>Internal use.</inlineHelpText>
+    <label>Selected Groups</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Selected_Tags__c</fullName>
+    <deprecated>false</deprecated>
+    <description>JSON Object containing Mailchimp Tags to apply to the import. E.g. [{&quot;name&quot;:&quot;4886926&quot;,&quot;label&quot;:&quot;Member&quot;},{&quot;name&quot;:&quot;4886930&quot;,&quot;label&quot;:&quot;Customer&quot;}]</description>
+    <inlineHelpText>Internal use.</inlineHelpText>
+    <label>Selected Tags</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

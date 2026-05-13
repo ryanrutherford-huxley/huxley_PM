@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SMS_Double_Opt_In__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used in flow and populated by a positive response to the Consent SMS message</description>
+    <inlineHelpText>Mogli SMS Double Opt In</inlineHelpText>
+    <label>SMS Double Opt In</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

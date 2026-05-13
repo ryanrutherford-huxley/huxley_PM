@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pricing</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR (
+  AND (Price__c &lt; 155, Tests_per_month__c &lt; 100),
+  AND (Price__c &lt; 150, Tests_per_month__c &lt; 250),
+  AND (Price__c &lt; 145, Tests_per_month__c &lt; 400),
+  AND (Price__c &lt; 140, Tests_per_month__c &lt; 600),
+  AND (Price__c &lt; 135, Tests_per_month__c &lt; 800),
+  AND (Price__c &lt; 130, Tests_per_month__c &lt; 5000) 
+)</errorConditionFormula>
+    <errorDisplayField>Price__c</errorDisplayField>
+    <errorMessage>$155 (starting offer)​
+$150​ if Tests per month = 100+
+$145​ if Tests per month = 250+
+$140​ if Tests per month = 400+ 
+$135​ if Tests per month = 600+
+$130​ if Tests per month = 800+</errorMessage>
+</ValidationRule>

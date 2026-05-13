@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Instructional_Call_Required__c</fullName>
+    <formula>AND(ISPICKVAL(Status__c, &quot;With Patient&quot;),
+ISBLANK(Instructional_Call_Date__c),
+OR(ISBLANK(Last_Instructional_Call_Attempt__c), Last_Instructional_Call_Attempt__c + 0.5 &lt; NOW()
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Instructional Call Required</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

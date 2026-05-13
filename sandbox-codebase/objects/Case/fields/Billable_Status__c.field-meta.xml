@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billable_Status__c</fullName>
+    <label>Billable Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Billable</fullName>
+                <default>false</default>
+                <label>Billable</label>
+            </value>
+            <value>
+                <fullName>Unbillable</fullName>
+                <default>false</default>
+                <label>Unbillable</label>
+            </value>
+            <value>
+                <fullName>Lost Pod - Shipping</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lost Pod - Shipping</label>
+            </value>
+            <value>
+                <fullName>Lost Pod - Unresponsive Patient</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lost Pod - Unresponsive Patient</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

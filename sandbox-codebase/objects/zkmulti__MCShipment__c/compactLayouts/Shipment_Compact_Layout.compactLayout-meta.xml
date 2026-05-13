@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Shipment_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>zkmulti__Shipment_Type__c</fields>
+    <fields>zkmulti__Last_Track_Update_Time__c</fields>
+    <fields>zkmulti__Tracking_Stage__c</fields>
+    <fields>zkmulti__Tracking_Number__c</fields>
+    <fields>zkmulti__ShipmentStatus__c</fields>
+    <fields>zkmulti__Actual_Delivery_Date__c</fields>
+    <fields>zkmulti__Shipment_Deleted__c</fields>
+    <fields>zkmulti__Status_Description__c</fields>
+    <label>Shipment Compact Layout</label>
+</CompactLayout>

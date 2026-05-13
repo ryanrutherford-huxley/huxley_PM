@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Mailchimp_List__c</fullName>
+    <deprecated>false</deprecated>
+    <label>Mailchimp List</label>
+    <referenceTo>mone__Mailchimp_List__c</referenceTo>
+    <relationshipLabel>Mailchimp List Histories</relationshipLabel>
+    <relationshipName>Mailchimp_List_Histories</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

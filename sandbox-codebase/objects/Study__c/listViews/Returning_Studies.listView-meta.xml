@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Returning_Studies</fullName>
+    <columns>NAME</columns>
+    <columns>Patient__c</columns>
+    <columns>Provider_Account__c</columns>
+    <columns>Status__c</columns>
+    <columns>Return_Tracking__c</columns>
+    <columns>Return_Tracking_Stage__c</columns>
+    <columns>Expected_Delivery_Date_Return__c</columns>
+    <columns>Study_Age_Days__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Inbound</value>
+    </filters>
+    <label>On the Way Back</label>
+</ListView>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study_Issue_Type__c</fullName>
+    <description>What is the type of the issue with the study if it is unsuccessful</description>
+    <inlineHelpText>What is the type of the issue with the study if it is unsuccessful. ECG Exclusion encompasses possible skin preparation, delamination and leads off issues</inlineHelpText>
+    <label>Study Issue Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>10 minute file - In transit</fullName>
+                <default>false</default>
+                <label>10 minute file - In transit</label>
+            </value>
+            <value>
+                <fullName>10 minute file - with patient</fullName>
+                <default>false</default>
+                <label>10 minute file - with patient</label>
+            </value>
+            <value>
+                <fullName>Algorithm</fullName>
+                <default>false</default>
+                <label>Algorithm</label>
+            </value>
+            <value>
+                <fullName>Data Quality - ECG and PPG Exclusion</fullName>
+                <default>false</default>
+                <label>Data Quality - ECG and PPG Exclusion</label>
+            </value>
+            <value>
+                <fullName>Data Quality - ECG Exclusion</fullName>
+                <default>false</default>
+                <label>Data Quality - ECG Exclusion</label>
+            </value>
+            <value>
+                <fullName>Data Quality - Hardware/ Firmware</fullName>
+                <default>false</default>
+                <label>Data Quality - Hardware/ Firmware</label>
+            </value>
+            <value>
+                <fullName>Time under 88</fullName>
+                <default>false</default>
+                <label>Time under 88</label>
+            </value>
+            <value>
+                <fullName>No study file (test attempted)</fullName>
+                <default>false</default>
+                <label>No study file (test attempted)</label>
+            </value>
+            <value>
+                <fullName>PPG Exclusion  - Both</fullName>
+                <default>false</default>
+                <label>PPG Exclusion  - Both</label>
+            </value>
+            <value>
+                <fullName>Data Quality - PPG Exclusion</fullName>
+                <default>false</default>
+                <label>PPG Exclusion - Low Pulse Amplitude</label>
+            </value>
+            <value>
+                <fullName>PPG Exclusion - Noise/Motion Artifact</fullName>
+                <default>false</default>
+                <label>PPG Exclusion - Noise/Motion Artifact</label>
+            </value>
+            <value>
+                <fullName>Short Recording</fullName>
+                <default>false</default>
+                <label>Short Recording</label>
+            </value>
+            <value>
+                <fullName>Study won&apos;t upload</fullName>
+                <default>false</default>
+                <label>Study won&apos;t upload</label>
+            </value>
+            <value>
+                <fullName>Huxley Agent Error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Huxley Agent Error</label>
+            </value>
+            <value>
+                <fullName>Patient Unresponsive</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Patient Unresponsive</label>
+            </value>
+            <value>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Shipping</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

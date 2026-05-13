@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Need_Return_Processing</fullName>
+    <columns>NAME</columns>
+    <columns>Patient__c</columns>
+    <columns>Provider_Account__c</columns>
+    <columns>Status__c</columns>
+    <columns>Action_Required__c</columns>
+    <columns>Action_Required_Time_Hours__c</columns>
+    <columns>Study_Age_Days__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Action_Required__c</field>
+        <operation>equals</operation>
+        <value>Process Return</value>
+    </filters>
+    <label>Need Return Processing</label>
+</ListView>

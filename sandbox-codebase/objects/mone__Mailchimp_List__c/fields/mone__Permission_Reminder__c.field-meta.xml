@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Permission_Reminder__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Text is presented to the user as to why they are receiving the email. E.g. &quot;You are receiving this email because you opted in via our website.&quot;</inlineHelpText>
+    <label>Permission Reminder</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

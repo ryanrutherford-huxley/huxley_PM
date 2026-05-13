@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opted_In_For_Texting__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box if the patient has opted in for texting</description>
+    <inlineHelpText>Check this box if the patient has opted in for texting</inlineHelpText>
+    <label>Opted In For Texting</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

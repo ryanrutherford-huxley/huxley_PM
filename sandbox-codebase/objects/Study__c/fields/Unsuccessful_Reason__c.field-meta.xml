@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unsuccessful_Reason__c</fullName>
+    <label>Unsuccessful Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Data Quality: Short recording Patient</fullName>
+                <default>false</default>
+                <label>Data Quality: Short recording time (patient caused)</label>
+            </value>
+            <value>
+                <fullName>Data Quality: Other</fullName>
+                <default>false</default>
+                <label>Data Quality: Other</label>
+            </value>
+            <value>
+                <fullName>Patient Refusal: Pre-ship</fullName>
+                <default>false</default>
+                <label>Pre-ship: Patient Refusal</label>
+            </value>
+            <value>
+                <fullName>Pre-ship: Patient Unresponsive</fullName>
+                <default>false</default>
+                <label>Pre-ship: Patient Unresponsive</label>
+            </value>
+            <value>
+                <fullName>Pre-ship: Provider Error</fullName>
+                <default>false</default>
+                <label>Pre-ship: Provider Error</label>
+            </value>
+            <value>
+                <fullName>Post-ship: Patient Refusal</fullName>
+                <default>false</default>
+                <label>Post-ship: Patient Refusal</label>
+            </value>
+            <value>
+                <fullName>Post-Ship: Patient Unresponsive</fullName>
+                <default>false</default>
+                <label>Post-Ship: Patient Unresponsive</label>
+            </value>
+            <value>
+                <fullName>Provider error: post-ship</fullName>
+                <default>false</default>
+                <label>Post-ship: Provider Error</label>
+            </value>
+            <value>
+                <fullName>Contraindicated</fullName>
+                <default>false</default>
+                <label>Contraindicated</label>
+            </value>
+            <value>
+                <fullName>Transit issue (Lost, Undeliverable, etc)</fullName>
+                <default>false</default>
+                <label>Transit issue (Lost, Undeliverable, etc)</label>
+            </value>
+            <value>
+                <fullName>Multiple unsuccessful studies</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Multiple unsuccessful studies</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

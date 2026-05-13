@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Packaged_Date_Required</fullName>
+    <active>true</active>
+    <description>Once an asset is assigned to a study the packaged date cannot be blank.</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(Asset__c)),
+    ISBLANK( Packaged_Date__c )
+)</errorConditionFormula>
+    <errorMessage>Packaged date is required.</errorMessage>
+</ValidationRule>

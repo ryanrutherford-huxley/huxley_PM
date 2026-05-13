@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Short_Name__c</fullName>
+    <description>Used in Mogli SMS Automation for the Initial Outreach for SMS Opt In and Address Verification to ensure the Opt In Message does not exceed the character limit</description>
+    <externalId>false</externalId>
+    <inlineHelpText>35 Characters. Used in Mogli SMS Automation for the Initial Outreach for SMS Opt In and Address Verification to ensure the Opt In Message does not exceed the character limit</inlineHelpText>
+    <label>Account Short Name</label>
+    <length>35</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>High_Study_Age</fullName>
+    <columns>NAME</columns>
+    <columns>Patient__c</columns>
+    <columns>Provider_Account__c</columns>
+    <columns>Status__c</columns>
+    <columns>Action_Required__c</columns>
+    <columns>Study_Age_Days__c</columns>
+    <columns>Demo__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Study_Age_Days__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>7</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Complete</value>
+    </filters>
+    <filters>
+        <field>Demo__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>High Study Age</label>
+</ListView>

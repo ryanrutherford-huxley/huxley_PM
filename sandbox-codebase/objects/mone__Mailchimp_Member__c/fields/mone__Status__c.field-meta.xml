@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Status__c</fullName>
+    <defaultValue>&quot;unknown&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Subscriber&apos;s current status. Possible values: &quot;subscribed&quot;, &quot;unsubscribed&quot;, &quot;cleaned&quot;, &quot;pending&quot;, &quot;transactional&quot;, or &quot;archived&quot;.</inlineHelpText>
+    <label>Status</label>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Subscribed</fullName>
+                <default>false</default>
+                <label>Subscribed</label>
+            </value>
+            <value>
+                <fullName>Unsubscribed</fullName>
+                <default>false</default>
+                <label>Unsubscribed</label>
+            </value>
+            <value>
+                <fullName>Cleaned</fullName>
+                <default>false</default>
+                <label>Cleaned</label>
+            </value>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Transactional</fullName>
+                <default>false</default>
+                <label>Transactional</label>
+            </value>
+            <value>
+                <fullName>Archived</fullName>
+                <default>false</default>
+                <label>Archived</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patient_No_Automated_SMS__c</fullName>
+    <description>Used in flow automation to prevent automated text messages to the patient. https://basecamp.com/2583453/projects/19794483/todos/514550599</description>
+    <formula>INCLUDES(Patient__r.Non_Traditional_Protocol__c, &apos;Do Not Send Automated SMS&apos;)</formula>
+    <label>Patient: No Automated SMS</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_Model__c</fullName>
+    <label>Billing Model</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Order_Level_Success</fullName>
+                <default>false</default>
+                <label>Order Level (Bill on Completion, Success)</label>
+            </value>
+            <value>
+                <fullName>Order_Level_Shipment</fullName>
+                <default>false</default>
+                <label>Order Level (Bill on ship, Successful only)</label>
+            </value>
+            <value>
+                <fullName>Study_Level_per_Shipment</fullName>
+                <default>false</default>
+                <label>Study Level (Bill on ship, per shipment)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

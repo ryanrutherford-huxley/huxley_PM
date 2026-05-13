@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>heymarket__Created_On_Heymarket__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The time when the message was created in Heymarket.</description>
+    <label>Created On Heymarket</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

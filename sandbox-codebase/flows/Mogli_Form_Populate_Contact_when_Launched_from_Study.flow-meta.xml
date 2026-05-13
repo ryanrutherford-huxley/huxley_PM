@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <assignments>
+        <description>If a Mogli Form Template is launched for a Study, this will also populate the contact field on the Form Template record.</description>
+        <name>Assign_Contact_with_Patient_Record</name>
+        <label>Assign Contact with Patient Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Mogli_SMS__Contact__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Study__r.Patient__r.PersonContactId</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Verifies that the Study record has a Patient defined</description>
+        <name>Decision_Study_has_Patient_Record</name>
+        <label>Decision: Study has Patient Record?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome: Study does not have patient</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_Study_Has_Patient</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Study__r.Patient__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Contact_with_Patient_Record</targetReference>
+            </connector>
+            <label>Outcome: Study Has Patient</label>
+        </rules>
+    </decisions>
+    <description>If a Form Template is Launched from a Study record, this flow ensures that the Mogli Form&apos;s contact field is also populated. https://basecamp.com/2583453/projects/19794483/todos/515556711</description>
+    <environments>Default</environments>
+    <interviewLabel>(Mogli Form) Populate Contact when Launched from Study {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Mogli Form) Populate Contact when Launched from Study</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Decision_Study_has_Patient_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Study__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Mogli_SMS__Contact__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Mogli_SMS__Form__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

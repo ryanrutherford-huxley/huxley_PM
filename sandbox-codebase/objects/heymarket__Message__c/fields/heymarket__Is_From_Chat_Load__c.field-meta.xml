@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>heymarket__Is_From_Chat_Load__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When the message is saved via chat load then this field will be true. Otherwise false by default.</description>
+    <label>Is From Chat Load</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

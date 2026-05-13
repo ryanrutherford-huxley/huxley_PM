@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Time_to_Pack_and_Ship_Hours__c</fullName>
+    <description>Represents the time it takes for the study to be packed and shipped after the address is confirmed</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Date_Shipped_to_Patient__c), NOW() -  Address_Confirmed_Date__c, Date_Shipped_to_Patient__c - Address_Confirmed_Date__c)*24</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Time to Pack and Ship (Hours)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__All</fullName>
+    <columns>NAME</columns>
+    <columns>mone__Member_Id__c</columns>
+    <columns>mone__Email__c</columns>
+    <columns>mone__Unique_Email_Id__c</columns>
+    <columns>mone__Contact_Id__c</columns>
+    <columns>mone__Full_Name__c</columns>
+    <columns>mone__Web_Id__c</columns>
+    <columns>mone__Email_Type__c</columns>
+    <columns>mone__Status__c</columns>
+    <columns>mone__Consents_To_One_To_One_Messaging__c</columns>
+    <columns>mone__Avg_Open_Rate__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

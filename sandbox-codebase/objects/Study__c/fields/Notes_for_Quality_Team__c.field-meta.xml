@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notes_for_Quality_Team__c</fullName>
+    <description>Leave a note to specify why this study is being checked as &quot;Quality Review Required&quot;</description>
+    <inlineHelpText>Leave a note to specify why this study is being checked as &quot;Quality Review Required&quot;</inlineHelpText>
+    <label>Notes for Quality Team</label>
+    <length>5000</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

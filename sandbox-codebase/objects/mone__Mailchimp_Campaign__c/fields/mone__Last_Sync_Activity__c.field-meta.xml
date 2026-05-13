@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Last_Sync_Activity__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Stores the data/time for the last time we synced opens and clicks.</description>
+    <inlineHelpText>Internal use.</inlineHelpText>
+    <label>Last Sync Activity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

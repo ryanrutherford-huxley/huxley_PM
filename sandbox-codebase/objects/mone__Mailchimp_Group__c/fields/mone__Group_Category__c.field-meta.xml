@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mone__Group_Category__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Look up to the unique ID for the interest category.</inlineHelpText>
+    <label>Group Category</label>
+    <referenceTo>mone__Mailchimp_Group_Category__c</referenceTo>
+    <relationshipLabel>Mailchimp Groups</relationshipLabel>
+    <relationshipName>Mailchimp_Groups</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
